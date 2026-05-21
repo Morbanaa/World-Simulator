@@ -9,6 +9,7 @@ def main():
     game_speed = 0.05
     game_manager = Game_Manager(40,100)
     game_manager.world_gen()
+    game_manager.create_clans()
     while True:
 
         game_manager.update()
