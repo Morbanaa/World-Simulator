@@ -6,6 +6,7 @@ import sys
 import random
 from cursor import Cursor
 from update import Update
+from clan import Clan
 
 # Colors
 BLACK   = '\033[30m'
@@ -20,6 +21,7 @@ LIGHT_GRAY = '\033[37m'
 DARK_GRAY  = '\033[90m'
 CRIMSON        = '\033[38;5;160m'
 GOLD_ORANGE    = '\033[38;5;208m'
+BROWN = '\033[38;5;52m'
 
 BRIGHT_BLACK   = '\033[90m'
 BRIGHT_RED     = '\033[91m'
@@ -144,6 +146,27 @@ class Game_Manager():
                     if chance == 1:
                         self.game_map[y][x] = "f"
 
+
+    ####################################
+    #       Create Clans
+    ####################################
+    def create_clans(self):
+        bad_tile = ["@","w","t","M","f","g"]
+
+        for i in range(6):
+            while True:
+                randY = random.randint(2,self.game_height-3)
+                randX = random.randint(2,self.game_width-3)
+
+                is_there = False
+                for clan in Clan.clans:
+                    if clan.ypos == randY and clan.xpos == randX:
+                        is_there = True
+                if is_there == False and self.game_map[randY][randX] not in bad_tile:
+                    Clan.clans.append(Clan(randY,randX,))
+                    break
+                    
+                   
     ####################################
     #       Update Objects
     ####################################
@@ -161,6 +184,17 @@ class Game_Manager():
     def render_world(self):
         for y in range(self.game_height):
             for x in range(self.game_width):
+
+                # Prints Clans
+                clan_here = False
+                for clan in Clan.clans:
+                    if clan.ypos == y and clan.xpos == x:
+                        clan_here = True
+                        print(f"{BRIGHT_WHITE}{clan.symbol}{RESET}",end="")
+                        break
+                if clan_here:
+                    continue
+
                 if y == self.cursor.ypos and x == self.cursor.xpos:
                     print("^",end="")
                 elif self.game_map[y][x] == "@":
@@ -168,7 +202,7 @@ class Game_Manager():
                 elif self.game_map[y][x] == ".":
                     print(f"{GREEN}.{RESET}",end="")
                 elif self.game_map[y][x] == "M":
-                    print(f"{BRIGHT_WHITE}M{RESET}",end="")
+                    print(f"{BROWN}M{RESET}",end="")
                 elif self.game_map[y][x] == "w":
                     print(f"{BRIGHT_BLUE}w{RESET}",end="")
                 elif self.game_map[y][x] == "t":
@@ -176,7 +210,7 @@ class Game_Manager():
                 elif self.game_map[y][x] == "g":
                     print(f"{GOLD_ORANGE}g{RESET}",end="")
                 elif self.game_map[y][x] == "f":
-                    print(f"{CRIMSON}f{RESET}",end="")
+                    print(f"{GOLD_ORANGE}f{RESET}",end="")
                 else:
                     print(self.game_map[y][x],end="")
             print()
