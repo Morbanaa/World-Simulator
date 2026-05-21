@@ -155,8 +155,8 @@ class Game_Manager():
 
         for i in range(6):
             while True:
-                randY = random.randint(2,self.game_height-3)
-                randX = random.randint(2,self.game_width-3)
+                randY = random.randint(5,self.game_height-5)
+                randX = random.randint(6,self.game_width-6)
 
                 is_there = False
                 for clan in Clan.clans:
@@ -191,12 +191,18 @@ class Game_Manager():
                     if clan.ypos == y and clan.xpos == x:
                         clan_here = True
                         print(f"{BRIGHT_WHITE}{clan.symbol}{RESET}",end="")
+                        self.game_map[y-1][x] = "#"
+                        self.game_map[y+1][x] = "#"
+                        self.game_map[y][x-1] = "#"
+                        self.game_map[y][x+1] = "#"
                         break
                 if clan_here:
                     continue
 
                 if y == self.cursor.ypos and x == self.cursor.xpos:
                     print("^",end="")
+                elif self.game_map[y][x] == "#":
+                    print(f"{WHITE}#{RESET}",end="")
                 elif self.game_map[y][x] == "@":
                     print(f"{DARK_GRAY}@{RESET}",end="")
                 elif self.game_map[y][x] == ".":
