@@ -1,6 +1,6 @@
-# President
-# TR JG
-# Idiotball Studios
+# World Simulator
+# TR 
+# Morbanaa Studios
 
 import keyboard
 

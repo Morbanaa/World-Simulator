@@ -1,6 +1,6 @@
-# President
-# TR JG
-# Idiotball Studios
+# World Simulator
+# TR 
+# Morbanaa Studios
 
 import time
 from game_manager import Game_Manager
