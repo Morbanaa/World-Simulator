@@ -1,8 +1,11 @@
-# President
-# TR JG
-# Idiotball Studios
+# World Simulator
+# TR 
+# Morbanaa Studios
 
 import sys
+import random
+from cursor import Cursor
+from update import Update
 
 # Colors
 BLACK   = '\033[30m'
@@ -31,9 +34,6 @@ DARK_GREEN = '\033[32m'
 
 # Reset Color
 RESET = '\033[0m'
-
-import random
-from cursor import Cursor
 
 class Game_Manager():
     ####################################
@@ -148,7 +148,11 @@ class Game_Manager():
     #       Update Objects
     ####################################
     def update(self):
+        # Update Objects
         self.cursor.update(self.game_map)
+
+        # Update Map
+        Update.update(self.game_map,self.game_height,self.game_width)
 
 
     ####################################
